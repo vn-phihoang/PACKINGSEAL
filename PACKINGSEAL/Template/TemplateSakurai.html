@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onegai Sakurai</title>
+    <script src="../JS/fitty.min.js"></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+            padding-left: 125px;
+            padding-top: 50px;
+        }
+
+        @font-face {
+            font-family: 'ＭＳ ゴシック';
+            src: url("../Fonts/MS-Gothic.ttf") format('truetype');
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'BIZ UDゴシック';
+            src: url("../Fonts/BIZ-UDGothic-Bold.ttf") format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            zoom: 100%;
+            margin: 0px;
+            background-color: #ffffff !important;
+        }
+
+        page {
+            background: white;
+            display: block;
+            margin: 0 auto 0.5cm;
+            box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        }
+
+            page[size="A4"] {
+                width: 21cm;
+            }
+
+        /* Layout boxes */
+        .outer-box {
+            float: left;
+            margin: 0;
+            vertical-align: top;
+            padding: 7px 10px 4px 10px;
+            margin-bottom: 5em;
+            vertical-align: top;
+        }
+
+        @media screen {
+            .outer-box {
+                width: 260px; /* ~7cm */
+                height: 390px; /* ~10cm */
+            }
+        }
+
+        .box-left {
+            flex: 1;
+            border: 1px solid #10274B;
+        }
+
+        .box-right {
+            flex: 1;
+            border: 1px solid #10274B;
+        }
+
+        .box-content {
+            padding: 0.1em 0em 0.6em 0.6em;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+        }
+
+        .title {
+            font-family: 'ＭＳ ゴシック', sans-serif;
+            font-size: 20px;
+            display: inline-block;
+        }
+
+        .content {
+            font-family: 'BIZ UDゴシック', sans-serif;
+            padding-left: 0.2em;
+            font-weight: bold;
+            font-size: 20px;
+            display: inline-block;
+        }
+
+        .fit-text {
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 20px;
+            line-height: 1.2;
+        }
+
+        .crosshair-h, .crosshair-v {
+            position: fixed;
+            background-color: seagreen;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .crosshair-h {
+            height: 1px;
+            width: 100%;
+            top: 0;
+        }
+
+        .crosshair-v {
+            width: 1px;
+            height: 100%;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <!--<div class="outer-box box-left">
+        <div id="qr-box" style="text-align:center;"></div>
+        <div class="box-content">
+            <label class="title">DATE :</label>
+            <label class="content">17/09/2024</label>
+        </div>
+        <div class="box-content">
+            <label class="title">I/V No. :</label>
+            <label id="fit-text" class="content fit-text" style="width:150px;">IVNC-008421008</label>
+        </div>
+        <div class="box-content">
+            <label class="title">CARTON No. :</label>
+            <label class="content">1</label>
+        </div>
+    </div>-->
+    [htmlContent]
+    <script type="module">
+        const hLine = document.getElementById('crosshair-h');
+        const vLine = document.getElementById('crosshair-v');
+
+        document.addEventListener('mousemove', (e) => {
+            hLine.style.top = `${e.clientY}px`;
+            vLine.style.left = `${e.clientX}px`;
+        });
+        window.onload = function () {
+            document.querySelectorAll('.fit-text').forEach(el => {
+                let fontSize = 20;
+                while (el.scrollWidth > el.clientWidth && fontSize > 12) {
+                    fontSize--;
+                    el.style.fontSize = fontSize + 'px';
+                }
+            });
+        };
+
+        // QR code
+        import { BrowserQRCodeSvgWriter } from 'https://cdn.jsdelivr.net/npm/@zxing/library@latest/+esm';
+        const qrBox = document.getElementById("qr-box");
+        const writer = new BrowserQRCodeSvgWriter();
+        const svgElement = writer.write("https://example.com", 250, 250);
+        qrBox.appendChild(svgElement);
+    </script>
+</body>
+</html>

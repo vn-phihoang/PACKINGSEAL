@@ -1,0 +1,201 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onegai Monbell</title>
+    <script src="../JS/fitty.min.js"></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+            padding-left: 55px;
+            padding-top: 18px;
+        }
+
+        @font-face {
+            font-family: 'MS UI Gothic';
+            src: url("../Fonts/MS-UIGothic.ttf") format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Noto Sans JP ExtraBold';
+            src: url("../Fonts/NotoSansJP-SemiBold.ttf") format('truetype');
+        }
+
+        @font-face {
+            font-family: 'TT-JTCウインS4';
+            src: url("../Fonts/NIS-S4.TTC") format('truetype');
+        }
+
+        body {
+            font-family: 'MS UI Gothic', sans-serif;
+            zoom: 100%;
+            margin: 0;
+            background-color: #ffffff !important;
+        }
+
+        page {
+            background: white;
+            display: block;
+            margin: 0 auto 0.5cm;
+            box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        }
+
+            page[size="A4"] {
+                width: 21cm;
+            }
+
+        /* Layout boxes */
+        .outer-box {
+            display: inline-block;
+            width: 8.2cm;
+            height: 4.33cm;
+            margin: auto;
+            margin-bottom: 5px;
+            border: 1px solid #10274B;
+            padding: 7px 10px 4px 10px;
+            color: #10274B;
+            vertical-align: top;
+            font-family: 'MS UI Gothic', sans-serif;
+            border-radius: 4px;
+        }
+
+        .box-left {
+            flex: 1;
+        }
+
+        .box-right {
+            flex: 1;
+        }
+
+        .content-bold {
+            font-family: 'Noto Sans JP ExtraBold', sans-serif;
+        }
+
+        /* Table styles */
+        .form-table {
+            width: 8.2cm;
+            border-collapse: collapse;
+            margin: auto;
+            line-height: 1.0;
+        }
+
+            .form-table td {
+                border-bottom: 1px solid #10274B;
+                padding-left: 3px;
+                padding-bottom: 0em;
+                font-size: 12px;
+                vertical-align: bottom;
+                text-align: left;
+                padding-top: 0.15em;
+            }
+
+
+            .form-table .label {
+                border: 1px solid #10274B;
+                font-weight: 500;
+                white-space: nowrap;
+            }
+
+            .form-table .title {
+                font-weight: 500;
+                text-align: left;
+                white-space: nowrap;
+            }
+
+        .fit-text {
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 12px;
+        }
+
+        /* Notice and footer */
+        .notice {
+            width: 8.2cm;
+            margin: 2px 0 0px;
+            text-align: left;
+            font-size: 10px;
+            padding-bottom: 1px;
+        }
+
+        .footer {
+            width: 8.2cm;
+            margin: auto;
+            text-align: left;
+            font-size: 9px;
+            padding-bottom: 2px;
+        }
+
+        .container {
+            display: block;
+            align-items: center;
+            /*justify-content: space-between;*/
+            width: 100%;
+        }
+
+        .address-img {
+            width: 100%;
+        }
+
+        .parent-container {
+            float: right;
+            display: inline-block;
+            justify-content: flex-end;
+        }
+
+        .qr-box {
+            /*float: right;*/
+            width: 3em;
+            height: 3em;
+            border: 1px solid #10274B;
+            display: flex;
+            align-items: end;
+            justify-content: right;
+            background-color: white;
+            /* margin-left: 10px;*/
+        }
+
+        .crosshair-h, .crosshair-v {
+            position: fixed;
+            background-color: seagreen;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .crosshair-h {
+            height: 1px;
+            width: 100%;
+            top: 0;
+        }
+
+        .crosshair-v {
+            width: 1px;
+            height: 100%;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    [htmlContent]
+    <script>
+        const hLine = document.getElementById('crosshair-h');
+        const vLine = document.getElementById('crosshair-v');
+
+        document.addEventListener('mousemove', (e) => {
+            hLine.style.top = `${e.clientY}px`;
+            vLine.style.left = `${e.clientX}px`;
+        });
+        window.onload = function () {
+            document.querySelectorAll('.fit-text').forEach(el => {
+                let fontSize = 12;
+                while (el.scrollWidth > el.clientWidth && fontSize > 6) {
+                    fontSize--;
+                    el.style.fontSize = fontSize + 'px';
+                }
+            });
+        };
+    </script>
+</body>
+</html>

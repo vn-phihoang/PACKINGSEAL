@@ -1,0 +1,279 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onegai Muji</title>
+    <script src="../JS/fitty.min.js"></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+            padding-left: 55px;
+            padding-top: 18px;
+        }
+
+        @font-face {
+            font-family: 'MS UI Gothic';
+            src: url("../Fonts/MS-UIGothic.ttf") format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Noto Sans JP ExtraBold';
+            src: url("../Fonts/NotoSansJP-SemiBold.ttf") format('truetype');
+        }
+
+        body {
+            font-family: 'MS UI Gothic', sans-serif;
+            zoom: 100%;
+            margin: 0;
+            background-color: #ffffff !important;
+        }
+
+        page {
+            background: white;
+            display: block;
+            margin: 0 auto 0.5cm;
+            box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        }
+
+            page[size="A4"] {
+                width: 21cm;
+            }
+
+        /* Layout boxes */
+        .outer-box {
+            display: inline-block;
+            width: 8.2cm;
+            height: 4.33cm;
+            margin: auto;
+            margin-bottom: 5px;
+            border: 1px solid #10274B;
+            padding: 7px 10px 4px 10px;
+            color: #10274B;
+            vertical-align: top;
+            font-family: 'MS UI Gothic', sans-serif;
+            border-radius: 4px;
+        }
+
+        .box-left {
+            flex: 1;
+        }
+
+        .box-right {
+            flex: 1;
+        }
+
+        .content-bold {
+            font-family: 'Noto Sans JP ExtraBold', sans-serif;
+        }
+
+        /* Table styles */
+        .form-table {
+            width: 8.2cm;
+            border-collapse: collapse;
+            margin: auto;
+            line-height: 1.0;
+        }
+
+            .form-table td {
+                border-bottom: 1px solid #10274B;
+                padding-left: 3px;
+                padding-bottom: 0em;
+                font-size: 12px;
+                vertical-align: bottom;
+                text-align: left;
+                padding-top: 0.15em;
+                word-wrap: break-word;
+                white-space: normal;
+            }
+
+            .form-table .label {
+                width: 65px;
+                border: 1px solid #10274B;
+                font-weight: 500;
+            }
+
+            .form-table .title {
+                font-weight: 500;
+                font-size: 12px;
+            }
+
+            .form-table .note {
+                font-size: 10px;
+            }
+
+            .form-table .content {
+                font-size: 14px;
+                text-align: left;
+            }
+
+            .form-table .pcs {
+                font-size: 10px;
+                width: 10px;
+                text-align: right;
+            }
+
+        .fit-text {
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 12px;
+        }
+
+        .fit-text-mb {
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 20px;
+        }
+        /* Notice and footer */
+        .notice {
+            width: 8.2cm;
+            margin: 2px 0 0px;
+            text-align: left;
+            font-size: 10px;
+            padding-bottom: 1px;
+        }
+
+        .footer {
+            width: 8.2cm;
+            margin: auto;
+            text-align: left;
+            font-size: 9px;
+            padding-bottom: 2px;
+        }
+
+        .container {
+            display: block;
+            align-items: center;
+            /*justify-content: space-between;*/
+            width: 100%;
+        }
+
+        .address-img {
+            width: 100%;
+        }
+
+        .parent-container {
+            float: right;
+            display: inline-block;
+            justify-content: flex-end;
+        }
+
+        .qr-box {
+            /*float: right;*/
+            width: 3em;
+            height: 3em;
+            border: 1px solid #10274B;
+            display: flex;
+            align-items: end;
+            justify-content: right;
+            background-color: white;
+            /* margin-left: 10px;*/
+        }
+
+        .crosshair-h, .crosshair-v {
+            position: fixed;
+            background-color: seagreen;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .crosshair-h {
+            height: 1px;
+            width: 100%;
+            top: 0;
+        }
+
+        .crosshair-v {
+            width: 1px;
+            height: 100%;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    [htmlContent]
+    <!--<div class="outer-box box-left">
+        <table class="form-table">
+            <tr>
+                <td class="label">Customer</td>
+                <td colspan="3" style="text-align:left;">
+                    <div id="fit-text" class="fit-text" style="width:235px;">
+                        <span>W&J (CAMBODIA)</span>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 4px;"><td></td></tr>
+            <tr>
+                <td class="label">Order No</td>
+                <td colspan="1">
+                    <div id="fit-text" class="fit-text" style="width:69px;">
+                        <span>GVA85701</span>
+                    </div>
+                </td>
+                <td colspan="2" style="text-align:right">
+                    <div id="fit-text" class="fit-text" style="width:170px;">
+                        <span>003-26S-01AC20L-001 </span>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 4px;"><td></td></tr>
+            <tr>
+                <td class="label">Item Code</td>
+                <td colspan="3" style="padding-left:8px;">
+                    <div id="fit-text" class="fit-text" style="width:225px;">
+                        <span>JPS001-2-IC</span>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 4px;"><td></td></tr>
+            <tr>
+                <td class="label">Quantity</td>
+                <td colspan="2" style="text-align:right">
+                    <span class="content-bold">1,410/2000</span>
+                </td>
+                <td colspan="1" class="pcs">PCS</td>
+            </tr>
+            <tr style="height: 4px;"><td></td></tr>
+            <tr>
+                <td class="label"></td>
+                <td colspan="1" style="padding-left:8px;"> 90553</td>
+                <td colspan="2" class="content-bold" style="text-align:right">FSC Mix Credit</td>
+            </tr>
+        </table>
+        <div class="notice">
+            Please open and confirm this package immediately on receipt.
+        </div>
+        <div class="footer">
+            <span>MADE IN VIETNAM</span>
+        </div>
+        <div class="container">
+            <div style="width: 70%; display: inline-block;">
+                <img src="./HCMAddressTentacEng.png" class="address-img" />
+            </div>
+            <div class="parent-container">
+                <div class="qr-box"></div>
+            </div>
+        </div>
+    </div>-->
+    <script>
+        const hLine = document.getElementById('crosshair-h');
+        const vLine = document.getElementById('crosshair-v');
+
+        document.addEventListener('mousemove', (e) => {
+            hLine.style.top = `${e.clientY}px`;
+            vLine.style.left = `${e.clientX}px`;
+        });
+        window.onload = function () {
+            document.querySelectorAll('.fit-text').forEach(el => {
+                let fontSize = 12;
+                while (el.scrollWidth > el.clientWidth && fontSize > 6) {
+                    fontSize--;
+                    el.style.fontSize = fontSize + 'px';
+                }
+            });
+        };
+    </script>
+</body>
+</html>
